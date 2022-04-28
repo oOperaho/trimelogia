@@ -72,7 +72,7 @@ def atualizarstatus(textostatus, valores, valores2):
         soma = (operadores[ordens[5][0]] + operadores[ordens[5][1]] + operadores[ordens[5][2]] + operadores[ordens[5][3]] + operadores[ordens[5][4]])
         textosituacao = f"[{'Reprovado' if soma < 8 else 'Aprovado'}]"
         textomedia = f"{soma:.3f}"
-        textostatus = None
+        textostatus = "[Status]"
     return textosituacao, textomedia, textostatus
 
 #grafico
