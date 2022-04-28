@@ -225,4 +225,4 @@ def update(botao, aqlI, atvI, parI, simI, conI, AqlS, AtvS, ParS):
 
 #######run
 if __name__ == "__main__":
-    app.run_server(debug=False)
+    app.run_server(debug=True)
