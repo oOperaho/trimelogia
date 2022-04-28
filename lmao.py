@@ -7,6 +7,7 @@ valoresX = arange(0, 10.1, .1)
 valores = {"Qualitativa": 0, "Atividades": 0, "Parcial": 0, "Simulado": 0, "Conclusiva": 0}
 
 app = Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.FLATLY], meta_tags=[{'name':'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}])
+server = app.server
 
 def sety(valoresX, Qualitativa, Parcial, Atividades):
     z = []
@@ -180,6 +181,8 @@ grid = html.Div(
     style={"padding-left":"2%", "padding-right":"2%", "margin-top":"2%"}
 )
 
+app.layout = html.Div([dbc.Container([grid], fluid=True)])
+
 @app.callback(
     Output(component_id="GRAFICO", component_property="figure"),
     Input(component_id="QUALITATIVASLIDER", component_property="value"),
@@ -221,7 +224,5 @@ def update(botao, aqlI, atvI, parI, simI, conI, AqlS, AtvS, ParS):
     return *atualizarstatus(pegarvalor(textosR)[0], pegarvalor(textosR)[1], pegarvalor(textosR)[2]), AqlS, AtvS, ParS
 
 #######run
-server = app.server
-app.layout = html.Div([dbc.Container([grid], fluid=True)])
 if __name__ == "__main__":
     app.run_server(debug=False)
