@@ -20,6 +20,7 @@ def sety(valoresX, Qualitativa, Parcial, Atividades):
         else:
             z.append(y)
     return z
+
 def pegarvalor(textosR):
     textos = []
     textostatus = None
@@ -38,6 +39,7 @@ def pegarvalor(textosR):
             textos[x] = 0
         valores[list(valores.keys())[x]] = textos[x]
     return [textostatus, valores, valores2]
+
 def atualizarstatus(textostatus, valores, valores2):
     operadores = [(0.3 * valores["Qualitativa"]), (0.14 * valores["Atividades"]), (0.21 * valores["Parcial"]),
                   (0.175 * valores["Simulado"]), (0.175 * valores["Conclusiva"])]
@@ -211,6 +213,7 @@ def update(aqlS, atvS, parS):
      ],
     prevent_initial_call=True
 )
+
 def update(botao, aqlI, atvI, parI, simI, conI, AqlS, AtvS, ParS):
     textosR = [aqlI, atvI, parI, simI, conI]
     AqlS = aqlI
