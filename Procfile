@@ -1,1 +1,1 @@
-wetb: gunicorn lmao:server
+web: gunicorn lmao:server
