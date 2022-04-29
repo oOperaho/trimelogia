@@ -12,7 +12,7 @@ server = app.server
 def sety(valoresX, Qualitativa, Parcial, Atividades):
     z = []
     for x in range(0, len(valoresX)):
-        y = (8 - 0.3 * Qualitativa - 0.21 * Parcial - 0.14 * Atividades - 0.175 * valoresX[x]) / 0.175
+        y = (8 - 0.3 * Qualitativa - 0.21 * Parcial - 0.1575 * Atividades - 0.175 * valoresX[x]) / 0.175
         if y < 0:
             z.append(0)
         elif y > 10:
@@ -41,9 +41,9 @@ def pegarvalor(textosR):
     return [textostatus, valores, valores2]
 
 def atualizarstatus(textostatus, valores, valores2):
-    operadores = [(0.3 * valores["Qualitativa"]), (0.14 * valores["Atividades"]), (0.21 * valores["Parcial"]),
+    operadores = [(0.3 * valores["Qualitativa"]), (0.1575 * valores["Atividades"]), (0.21 * valores["Parcial"]),
                   (0.175 * valores["Simulado"]), (0.175 * valores["Conclusiva"])]
-    ordens = [(1, 2, 3, 4, 0.3), (0, 2, 3, 4, 0.14), (0, 1, 3, 4, 0.21), (0, 1, 2, 4, 0.175), (0, 1, 2, 3, 0.175),
+    ordens = [(1, 2, 3, 4, 0.3), (0, 2, 3, 4, 0.1575), (0, 1, 3, 4, 0.21), (0, 1, 2, 4, 0.175), (0, 1, 2, 3, 0.175),
               (0, 1, 2, 3, 4)]
     y = 0
     for x in range(0, 5):
@@ -108,15 +108,15 @@ graficosliders = [
         dbc.Row([
             dbc.Col(sliders[0], width=10),
             dbc.Col(html.Label("Qualitativa"), width=2)
-        ]),
+        ],  style={"margin-right":"2%"}),
         dbc.Row([
             dbc.Col(sliders[1], width=10),
             dbc.Col(html.Label("Atividades"), width=2)
-        ]),
+        ],  style={"margin-right":"2%"}),
         dbc.Row([
             dbc.Col(sliders[2], width=10),
             dbc.Col(html.Label("Parcial"), width=2)
-        ]),
+        ],  style={"margin-right":"2%"}),
     ], style={"margin-left":"5%"})
 ]
 
