@@ -169,7 +169,7 @@ textosbotao = dbc.Col([
 grid = html.Div(
     [
         dbc.Row(html.H1("Trimelogia")),
-        dbc.Row(html.A('Dúvidas e contato', href='https://docs.google.com/document/d/17-Gh2lBkhPswoL8pFfpeZZjfrT01U0Vz_l8IIQo6tqc/edit?usp=sharing')),
+        dbc.Row(html.A('Dúvidas e contato', href='https://docs.google.com/document/d/17-Gh2lBkhPswoL8pFfpeZZjfrT01U0Vz_l8IIQo6tqc/edit?usp=sharing', target="_blank")),
         dbc.Row([
             dbc.Col([
                 dbc.Row(inputs),
