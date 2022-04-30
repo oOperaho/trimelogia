@@ -77,12 +77,11 @@ valores = {"Qualitativa": 0, "Atividades": 0, "Parcial": 0, "Simulado": 0, "Conc
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=valoresX, y=sety(valoresX, valores["Qualitativa"], valores["Parcial"], valores["Atividades"])))
-fig.update_xaxes(title_text="Conclusiva", range=[-1, 11])
-fig.update_yaxes(title_text="Simulado", range=[-1, 11])
-fig.update_layout(margin=dict(b=50, t=50, l=50, r=0))
-fig.update_layout(title={"text": "Gráfico da nota necessária"})
+fig.layout.xaxis = {"title": "Conclusiva", "range":[-1, 11], "fixedrange":True}
+fig.layout.yaxis = {"title": "Simulado", "range":[-1, 11], "fixedrange":True}
+fig.update_layout(margin=dict(b=50, t=50, l=50, r=0), title={"text": "Gráfico da nota necessária"})
 
-grafico = [html.Div(dcc.Graph(figure=fig, id="GRAFICO"))]
+grafico = [html.Div(dcc.Graph(figure=fig, id="GRAFICO", config={"displayModeBar":False}))]
 
 ########sliders
 def slidergen(nomelmao):
@@ -153,9 +152,9 @@ grid = html.Div([
             html.Div([
                 dbc.Row(grafico),
                 dbc.Row(slidersdiv)],
-                style={"padding-right":"15%"})],
+                style={"padding-right":"6%"})],
         xs=12, sm=12, md=5, lg=5, xl=5)])],
-    style={"margin-left":"2%", "margin-right":"2%", "margin-top":"2%"})
+    style={"margin-left":"2%", "margin-right":"4%", "margin-top":"2%"})
 
 app.layout = html.Div([dbc.Container([grid], fluid=True)])
 
