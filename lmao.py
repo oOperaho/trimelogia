@@ -3,11 +3,10 @@ import plotly.graph_objects as go
 from dash import dcc, html, Input, Output, State, Dash
 import dash_bootstrap_components as dbc
 
-valoresX = arange(0, 10.1, .1)
-valores = {"Qualitativa": 0, "Atividades": 0, "Parcial": 0, "Simulado": 0, "Conclusiva": 0}
-
+#app
 app = Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.FLATLY], meta_tags=[{'name':'viewport', 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}])
 server = app.server
+app.title = "Trimelogia"
 
 def sety(valoresX, Qualitativa, Parcial, Atividades):
     z = []
@@ -73,13 +72,17 @@ def atualizarstatus(textostatus, valores, valores2):
     return textosituacao, textomedia, textostatus
 
 #grafico
+valoresX = arange(0, 10.1, .1)
+valores = {"Qualitativa": 0, "Atividades": 0, "Parcial": 0, "Simulado": 0, "Conclusiva": 0}
+
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=valoresX, y=sety(valoresX, valores["Qualitativa"], valores["Parcial"], valores["Atividades"])))
-
 fig.update_xaxes(title_text="Conclusiva", range=[-1, 11])
 fig.update_yaxes(title_text="Simulado", range=[-1, 11])
-fig.update_layout(margin=dict(b=50, t=50, l=50, r=50))
-fig.update_layout(title={"text": "Gráfico da nota necessária",})
+fig.update_layout(margin=dict(b=50, t=50, l=50, r=0))
+fig.update_layout(title={"text": "Gráfico da nota necessária"})
+
+grafico = [html.Div(dcc.Graph(figure=fig, id="GRAFICO"))]
 
 ########sliders
 def slidergen(nomelmao):
@@ -95,41 +98,28 @@ def slidergen(nomelmao):
 
 sliders = []
 for x in ["Qualitativa", "Atividades", "Parcial"]:
-    sliders.append(slidergen(x))
-
-graficosliders = [
-    dbc.Col([
-        dbc.Row(html.Div(dcc.Graph(figure=fig, id="GRAFICO"))),
+    sliders.append(
         dbc.Row([
-            dbc.Col(sliders[0], width=10),
-            dbc.Col(html.Label("Qualitativa"), width=2)
-        ],  style={"margin-right":"2%"}),
-        dbc.Row([
-            dbc.Col(sliders[1], width=10),
-            dbc.Col(html.Label("Atividades"), width=2)
-        ],  style={"margin-right":"2%"}),
-        dbc.Row([
-            dbc.Col(sliders[2], width=10),
-            dbc.Col(html.Label("Parcial"), width=2)
-        ],  style={"margin-right":"2%"})], style={"margin-left":"5%"})]
+            dbc.Col(slidergen(x), width=10),
+            dbc.Col(html.Label(x), width=2)]))
+slidersdiv = [dbc.Col(sliders, width=12)]
 
 ########inputs
-opsie=6
-def linhavalor(nome):
+def textbox(nome):
     return dbc.Row([
         dbc.Col([
             html.Label(f"{nome}")],
-            width=opsie,
+            width=6,
             style={"background-color": "", "font-size":"150%", "text-align":"right", "padding-right":"1%"}),
         dbc.Col([
             dbc.Input(type="number", min=0, max=10, step=0.005, id=f"{nome.upper()}INPUT")],
-            width=opsie)],
+            width=6)],
         className="g-0",
         style={"margin-top":"1%"})
 
 inputs = []
 for key, value in valores.items():
-    inputs.append(linhavalor(key))
+    inputs.append(textbox(key))
 
 ##########botão-output
 textosbotao = dbc.Col([
@@ -143,10 +133,11 @@ textosbotao = dbc.Col([
             dbc.Row(html.Label("?", id="NOTALMAO")),
             dbc.Row(html.Label("[Incerto]", id="SITUACAO"))])],
         style={"background-color":"lightblue", "margin-top":"3%", "font-size":"120%", "text-align":"center"}),
-    dbc.Row(html.Label("[Status]", id="STATUS"),
-            style={"margin-top":"5%", "font-size":"120%", "text-align":"center"})],
-    width=opsie*2,
-    style={"margin-top":"1%", "margin-bottom":"20%"})
+    dbc.Row([
+        html.Label("[Status]", id="STATUS")],
+        style={"margin-top":"5%", "font-size":"120%", "text-align":"center"})],
+    width=12,
+    style={"margin-top":"1%", "margin-bottom":"10%"})
 
 #######display
 grid = html.Div([
@@ -157,8 +148,14 @@ grid = html.Div([
             dbc.Row(inputs),
             dbc.Row(textosbotao)],
             xs=12, sm=12, md=6, lg=6, xl=6),
-        dbc.Col(graficosliders, xs=12, sm=12, md=6, lg=6, xl=6)])],
-    style={"padding-left":"2%", "padding-right":"2%", "margin-top":"2%"})
+        dbc.Col([html.Label("")], xs=0, sm=0, md=1, lg=1, xl=1),
+        dbc.Col([
+            html.Div([
+                dbc.Row(grafico),
+                dbc.Row(slidersdiv)],
+                style={"padding-right":"15%"})],
+        xs=12, sm=12, md=5, lg=5, xl=5)])],
+    style={"margin-left":"2%", "margin-right":"2%", "margin-top":"2%"})
 
 app.layout = html.Div([dbc.Container([grid], fluid=True)])
 
