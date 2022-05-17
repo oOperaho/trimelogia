@@ -133,10 +133,7 @@ textosbotao = dbc.Col([
             dbc.Row(html.Label("[Incerto]", id="SITUACAO"))])],
         style={"background-color":"lightblue", "margin-top":"3%", "font-size":"120%", "text-align":"center"}),
     dbc.Row([
-        html.Label("[Status]", id="STATUS")],
-        style={"margin-top":"5%", "font-size":"120%", "text-align":"center"})],
-    width=12,
-    style={"margin-top":"1%", "margin-bottom":"10%"})
+        html.Label("https://pngimg.com/uploads/trollface/trollface_PNG15.png", id="STATUS")]
 
 #######display
 grid = html.Div([
